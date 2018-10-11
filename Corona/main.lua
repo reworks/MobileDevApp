@@ -22,3 +22,11 @@ timer.performWithDelay( 1000, function()
 	library.show( "corona" )
 end )
 
+
+-- Hide the device status bar.
+display.setStatusBar(display.HiddenStatusBar)
+
+-- Display the background image.
+local background = display.newImage("paper_bkg.png", true)
+background.x = display.contentCenterX
+background.y = display.contentCenterY
