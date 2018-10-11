@@ -12,7 +12,7 @@ Created with corona native utilizing corona native template.
 
 ### Overview
 
-You should start all new Corona Native projects by copying this project.
+You must start all new Corona Native projects by copying this project.
 
 This project allows you to:
 
