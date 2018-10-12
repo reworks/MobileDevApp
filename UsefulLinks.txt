@@ -1,0 +1,4 @@
+https://docs.coronalabs.com/native/android/index.html
+https://docs.coronalabs.com/native/plugin/index.html
+https://docs.coronalabs.com/native/plugin/index.html#architecture
+https://luaunit.readthedocs.io/en/luaunit_v3_2_1/
