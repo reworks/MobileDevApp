@@ -1,0 +1,5 @@
+- comment code
+- write tests
+- clean up code
+- neaten up UI
+- error checking
