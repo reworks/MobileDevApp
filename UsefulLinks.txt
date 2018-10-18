@@ -3,3 +3,4 @@ https://docs.coronalabs.com/native/plugin/index.html
 https://docs.coronalabs.com/native/plugin/index.html#architecture
 https://luaunit.readthedocs.io/en/luaunit_v3_2_1/
 https://docs.travis-ci.com/user/languages/android/
+https://docs.coronalabs.com/guide/system/composer/index.html

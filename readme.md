@@ -1,14 +1,9 @@
 # MobileDevApp
+[![Build Status](https://travis-ci.org/reworks/MobileDevApp.svg?branch=master)](https://travis-ci.org/reworks/MobileDevApp)
 
 Created with corona native utilizing corona native template.
 
 ## Corona Native Project Template
-
-> --------------------- ------------------------------------------------------------------------------------------
-> __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          iOS, Android, tvOS, Windows, macOS
-> __See also__          
-> --------------------- ------------------------------------------------------------------------------------------
 
 ### Overview
 
@@ -20,27 +15,6 @@ This project allows you to:
 * create native plugins for Corona
 
 ### Code Walkthrough
-
-#### iOS and tvOS
-
-Both `ios` and `tvos` folders contain projects `Plugin` and `App`. `App` contains sample Corona Native app with linked Corona Plugin inside `Plugin` project. Plugin is called `'plugin.library'`. `App` projects contain implementation of the `CoronaDelegate` protocol. In particular it has the method `willLoadMain:` which is your opportunity to modify the Lua state prior to execution of `main.lua`.
-
-Hitting ▶ to run a the `App` project with Xcode would run project with Lua code inside `Corona` folder.
-
-Note that Corona uses config files to specify various options required for Corona plugins and apps to be built.
-
-#### macOS
-
-Folders contain sample plugin for macOS Simulator and Desktop app. Note that plugin is a combination of compiled Lua and C++ code. To debug it, you can set up Executable: press "Edit Scheme" (`⌘<`), and select `Corona Simulator.app` from Applications folder.
-
-* custom build phase would copy plugin so it can be tested in Corona Simulator
-* custom build rule compiles Lua files in project so they can be used in C/C++
-
-#### Windows
-
-Folders contain sample plugin for Windows Simulator and Desktop app. Note that plugin is a combination of compiled Lua and C++ code. Review project properties to change plugin name or location of Corona Simulator.
-
-Open `Plugin.sln` and run it. This should build a sample plugin, copy it to Corona plugin folder, start Corona Simulator.
 
 #### Android
 
