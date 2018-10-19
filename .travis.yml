@@ -1,4 +1,6 @@
 language: android
+sudo: required
+
 android:
   components:
     - tools
@@ -11,4 +13,4 @@ android:
     
 script:
   - cd android
-  - ./gradlew assemble
+  - sudo ./gradlew assemble
