@@ -13,4 +13,4 @@ android:
     
 script:
   - cd android
-  - sudo ./gradlew assemble
+  - ./gradlew assemble
