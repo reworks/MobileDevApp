@@ -11,4 +11,4 @@ android:
     
 script:
   - cd android
-  - ./gradlew build connectedCheck
+  - ./gradlew assemble
