@@ -9,7 +9,7 @@ local function displayHome()
 	local inputBG = display.newImage("home.png", true)
 	inputBG.x = display.contentCenterX	
 	inputBG.y = display.contentCenterY
-	inputBG.height= 620
+	inputBG.height= 600
 	inputBG.width= 330
 
 	local function Security ( event )
@@ -37,11 +37,11 @@ local function displayHome()
 		{	
 			default = 
 			{
-				1, 0.2, 0.5, 0.7
+				1, 0.2, 0.5, 0.01
 			},
 			over = 
 			{
-				1, 0.2, 0.5, 1
+				1, 0.2, 0.5, 0.2
 			}
 		},
 		width = 130,
@@ -60,11 +60,11 @@ local function displayHome()
 		{	
 			default = 
 			{
-				1, 0.2, 0.5, 0.7
+				1, 0.2, 0.5, 0.01
 			},
 			over = 
 			{
-				1, 0.2, 0.5, 1
+				1, 0.2, 0.5, 0.2
 			}
 		},
 		width = 130,
@@ -82,11 +82,11 @@ local function displayHome()
 		{	
 			default = 
 			{
-				1, 0.2, 0.5, 0.7
+				1, 0.2, 0.5, 0.01
 			},
 			over = 
 			{
-				1, 0.2, 0.5, 1
+				1, 0.2, 0.5, 0.2
 			}
 		},
 		width = 150,
