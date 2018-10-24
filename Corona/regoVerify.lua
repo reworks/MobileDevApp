@@ -4,38 +4,51 @@ local globals = require("globals")
 
 local regoVerifyScene = composer.newScene()
 
-local verify --orward dec of verification code input variable
+local verify --forward dec of verification code input variable
 
 local function regoVerifyListener(event)
-    if _G.verifyCode == verify then
-    	composer.gotoScene("display")
+	
+	-- temp
+	print("code:" .. _G.verifyCode)
+	print("to check: " .. verify)
+
+
+	-- if verification code is correct then save file and move on if not print error message...
+    if tonumber(_G.verifyCode) == tonumber(verify) then
+    	local file, error = io.open(system.pathForFile("reg.txt", system.DocumentsDirectory), "w")
+
+    	file:write(_G.phoneNumber)
+    	io.close(file)
+
+    	composer.gotoScene("home")
+    else
+		local errorText = display.newText("Wrong verification code, " .. _G.userName, display.contentCenterX, display.contentCenterY - 210, native.systemFont, 18)
+		errorText:setFillColor(1, 0, 0)
     end
 end
 
 -- Event listener for textinput for verification code.
 local function verifyTextListener(event)
 	if event.phase == "began" then
-		-- Nothing right now.
- 
     elseif event.phase == "ended" or event.phase == "submitted" then
        _G.verifyCode = event.target.text
  
     elseif ( event.phase == "editing" ) then
-        --print( event.newCharacters )
-        --print( event.oldText )
-        --print( event.startPosition )
-       -- print( event.text )
     end
 end
 
 function regoVerifyScene:create( event )
     local sceneGroup = self.view
 
+    -- create background image
 	local verifyBG = display.newImage("verify.png", true)
 	sceneGroup:insert(verifyBG)
 
 	verifyBG.x = display.contentCenterX
 	verifyBG.y = display.contentCenterY 
+
+	-- generate a 5 digit verification code randomly.
+    verify = math.random(10000, 99999) -- Generate a random verification code between 5 digits long.
 end
  
 function regoVerifyScene:show( event )
@@ -46,31 +59,27 @@ function regoVerifyScene:show( event )
  
     elseif ( phase == "did" ) then
 
-       	verify = math.random(10000, 99999) -- Generate a random verification code between 5 digits long.
 		local message = "Hello, " .. _G.userName .. " please input this verification code: " .. verify
-
+		-- then send SMS. This should *theoretically* work according to corona docs and forums, etc, but doesn't appear to.
 		if string.len(_G.phoneNumber) == 10 then
-			local sms =
-			{
-			   to = { _G.phoneNumber },
-			   body = message
-			}
-			native.showPopup("sms", sms)
+			native.showAlert( "Verification", message, { "Ok"})
 		else
 			print("ERROR: Phone number to short! Must be 10 digits long.")
 		end
 
-		local verifyInput = native.newTextField(display.contentCenterX, display.contentCenterY + 50, 270, 56)
+		-- text input field for verification
+		local verifyInput = native.newTextField(display.contentCenterX - 10, display.contentCenterY + 125, 270, 56)
 		sceneGroup:insert(verifyInput)
 
 		verifyInput.align = "center"
 		verifyInput.font = native.newFont(native.systemFont, 16)
 		verifyInput.hasBackground = false
 		verifyInput.inputType = "number"
-		verifyInput.text = "Code..."
+		verifyInput.text = ""
 		verifyInput:resizeHeightToFitFont()
 		verifyInput:addEventListener("userInput", verifyTextListener)
 
+		-- button to submit verification.
 		local verifyButton = widget.newButton(
 		{
 			x = display.contentCenterX,
@@ -102,16 +111,12 @@ function regoVerifyScene:hide( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
- 
     elseif ( phase == "did" ) then
-        -- hide ui here?
     end
 end
  
 function regoVerifyScene:destroy( event )
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
- 
 end
  
 regoVerifyScene:addEventListener( "create", regoVerifyScene )

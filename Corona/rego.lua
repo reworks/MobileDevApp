@@ -66,10 +66,7 @@ function regoScene:hide( event )
 end
  
 function regoScene:destroy( event )
- 
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
- 
 end
  
 regoScene:addEventListener( "create", regoScene )

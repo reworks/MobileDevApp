@@ -5,8 +5,9 @@ local composer = require("composer") -- Used to move through scenes.
 -- This function checks for an existing registration, and if it does not find it, prompts user to register.
 -- Returns 0 if failed, otherwise returns phone number that is registered.
 local function checkForRego()
-	local file, error = io.open(system.pathForFile("reg.txt", system.DocumentsDirectory))
+	local file, error = io.open(system.pathForFile("reg.txt", system.DocumentsDirectory), "r")
 
+	-- if the number is 10 long then return it after closing file.
 	if not file then
 		return 0
 	else
@@ -27,7 +28,7 @@ local function main()
 	if num == 0 then
 		composer.gotoScene("rego")
 	else
-		composer.gotoScene("display")
+		composer.gotoScene("home")
 	end
 end
 

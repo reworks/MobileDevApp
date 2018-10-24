@@ -1,34 +1,42 @@
-
 local widget = require("widget") -- Used to import UI Widgets.
 local composer = require("composer") -- Used to import composer library
 
-local scene = composer.newScene()
+local homeScene = composer.newScene()
 
--- Displays the app screen that handles registration input.
-local function displayHome()
-	local inputBG = display.newImage("home.png", true)
+local function Security ( event )
+		local mytext = display.newText("you touched security monitoring", 150, 200, Arial, 20)
+		mytext:setFillColor(1, 0, 0)
+		print (mytext)
+	end
+local function Legal ( event )
+	composer.gotoScene("legalRights")
+end
+local function Complain_bt ( event )
+	local mytext = display.newText("you touched complain ", 150, 240, Arial, 20)
+	mytext:setFillColor(3, 3, 0)
+	print (mytext)
+end
+
+function homeScene:create( event )
+    local sceneGroup = self.view
+
+    local inputBG = display.newImage("home.png", true)
 	inputBG.x = display.contentCenterX	
 	inputBG.y = display.contentCenterY
 	inputBG.height= 600
 	inputBG.width= 330
 
-	local function Security ( event )
-		local mytext = display.newText("you touched security monitoring", 150, 200, Arial, 20)
-		mytext:setFillColor(1, 0, 0)
-		print (mytext)
-	end
-	local function Legal ( event )
-		local mytext = display.newText("you touched legal rights", 150, 220, Arial, 20)
-		mytext:setFillColor(9, 0, 5)
-		print (mytext)
-	end
-	local function Complain_bt ( event )
-		local mytext = display.newText("you touched complain ", 150, 240, Arial, 20)
-		mytext:setFillColor(3, 3, 0)
-		print (mytext)
-	end
-
-	local Sec_Mon = widget.newButton(
+	sceneGroup:insert(inputBG)
+end
+ 
+function homeScene:show( event )
+    local sceneGroup = self.view
+    local phase = event.phase
+ 
+    if ( phase == "will" ) then
+ 
+    elseif ( phase == "did" ) then
+    	local Sec_Mon = widget.newButton(
 	{
 		x = 70,
 		y = 90,
@@ -98,19 +106,30 @@ local function displayHome()
 	Sec_Mon:addEventListener("touch", Security)
 	Leg_Rt:addEventListener("touch", Legal)
 	Complain:addEventListener("touch", Complain_bt)
-	end
 
-function scene:create( event )
-	local sceneGroup = self.view
+	sceneGroup:insert(Sec_Mon)
+	sceneGroup:insert(Leg_Rt)
+	sceneGroup:insert(Complain)
+    end
 end
-
-
--- App start function. Sets up app.
-local function main()
-	displayHome()
-
-	
+ 
+function homeScene:hide( event )
+    local sceneGroup = self.view
+    local phase = event.phase
+ 
+    if ( phase == "will" ) then
+ 
+    elseif ( phase == "did" ) then
+    end
 end
-
--- Run the app
-main()
+ 
+function homeScene:destroy( event )
+    local sceneGroup = self.view
+end
+ 
+homeScene:addEventListener( "create", homeScene )
+homeScene:addEventListener( "show", homeScene )
+homeScene:addEventListener( "hide", homeScene )
+homeScene:addEventListener( "destroy", homeScene )
+ 
+return homeScene

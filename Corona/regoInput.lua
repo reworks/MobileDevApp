@@ -5,7 +5,12 @@ local globals = require("globals")
 local regoInputScene = composer.newScene()
 
 local function timerListener()
-    composer.gotoScene("regoVerify")
+    if string.len(_G.phoneNumber) == 10 then
+        composer.gotoScene("regoVerify")
+    else
+        local errorText = display.newText("Phone number to short! ", display.contentCenterX, display.contentCenterY - 210, native.systemFont, 18)
+        errorText:setFillColor(1, 0, 0)
+    end
 end
 
 local function buttonEventInputListener(event)
@@ -17,38 +22,30 @@ end
 -- This is the listener for the registration input for name.
 local function usernameTextListener(event)
 	if event.phase == "began" then
-		-- Nothing right now.
  
     elseif event.phase == "ended" or event.phase == "submitted" then
        _G.userName = event.target.text
  
     elseif ( event.phase == "editing" ) then
-        --print( event.newCharacters )
-        --print( event.oldText )
-        --print( event.startPosition )
-       -- print( event.text )
+
     end
 end
 
 -- Event listener for textinput for phone number.
 local function phoneTextListener(event)
 	if event.phase == "began" then
-        -- Nothing right now.
  
     elseif event.phase == "ended" or event.phase == "submitted" then
        _G.phoneNumber = event.target.text
  
     elseif ( event.phase == "editing" ) then
-        --print( event.newCharacters )
-        --print( event.oldText )
-        --print( event.startPosition )
-       -- print( event.text )
     end
 end
 
 function regoInputScene:create( event )
     local sceneGroup = self.view
 
+    -- create background image
     local bg = display.newImage("input.png", true)
     sceneGroup:insert(bg)
 
@@ -57,34 +54,35 @@ function regoInputScene:create( event )
 end
  
  function regoInputScene:show( event )
- 
     local sceneGroup = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
  
     elseif ( phase == "did" ) then
-        local usernameInput = native.newTextField(display.contentCenterX, display.contentCenterY + 50, 217, 56)
-        local phoneInput = native.newTextField(display.contentCenterX, display.contentCenterY + 100, 217, 56)
+        -- set up text input fields for username and phone number
+        local usernameInput = native.newTextField(display.contentCenterX + 50, display.contentCenterY + 5, 217, 56)
+        local phoneInput = native.newTextField(display.contentCenterX + 50, display.contentCenterY + 90, 217, 56)
         sceneGroup:insert(usernameInput)
         sceneGroup:insert(phoneInput)
 
         usernameInput.align = "center"
-        usernameInput.font = native.newFont(native.systemFont, 16)
+        usernameInput.font = native.newFont(native.systemFont, 18)
         usernameInput.hasBackground = false
         usernameInput.inputType = "no-emoji" --Default keyboard that filters out emojis.
-        usernameInput.text = "UN..."
+        usernameInput.text = ""
         usernameInput:resizeHeightToFitFont()
         usernameInput:addEventListener("userInput", usernameTextListener)
 
         phoneInput.align = "center"
-        phoneInput.font = native.newFont(native.systemFont, 16)
+        phoneInput.font = native.newFont(native.systemFont, 18)
         phoneInput.hasBackground = false
         phoneInput.inputType = "phone"
-        phoneInput.text = "#..."
+        phoneInput.text = ""
         phoneInput:resizeHeightToFitFont()
         phoneInput:addEventListener("userInput", phoneTextListener)
 
+        -- proceed to verification code.
         local newRegoButton = widget.newButton(
         {
             x = display.contentCenterX,
@@ -116,16 +114,12 @@ function regoInputScene:hide( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
- 
     elseif ( phase == "did" ) then
-        -- hide ui here?
     end
 end
  
 function regoInputScene:destroy( event ) 
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
- 
 end
  
 regoInputScene:addEventListener( "create", regoInputScene )
