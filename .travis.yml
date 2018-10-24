@@ -1,5 +1,6 @@
 language: android
 sudo: required
+os: osx
 
 android:
   components:
@@ -10,7 +11,12 @@ android:
     
 before_script:
   - cd android
-  #- bash download_plugins.sh
+  - brew update && brew install curl
+  - curl -o corona.dmg https://developer.coronalabs.com/sites/default/files/corona/2018.3410/Corona-2018.3410.dmg
+  - hdiutil attach corona.dmg
+  - mv /Volumes/corona/Corona-3410/Corona-3410 /Applications
+  - open -a /Applications/Corona-3410/Native/Setup\ Corona\ Native.app
 
 script:
+  - bash download_plugins.sh
   - bash ./gradlew assemble
