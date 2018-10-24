@@ -13,7 +13,7 @@ android:
     
 before_script:
   - cd android
-  - sudo ./download_plugins
+  - ./download_plugins
 
 script:
-  - sudo ./gradlew assemble
+  - ./gradlew assemble
