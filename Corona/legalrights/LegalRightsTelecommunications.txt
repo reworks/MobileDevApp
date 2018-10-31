@@ -1,0 +1,17 @@
+Telecommunications (interception and access) act 1979
+
+DESCRIPTION OF THE ACT
+This act restricts access of telecommunications and the access of stored communications
+
+DEFINITIONS
+Telecommunication devices refer to any device used to access a telecommunication network (e.g. phones, laptops, ipads)
+Telecommunication networks are networks which allow communication between devices (e.g. the internet, phone networks)
+Enforcement agencies may refer to: federal police, state police, customs and border control, crime commissions, anti-corruption bodies and the crime trac agency.
+The Australian Security and Intelligence Organisation (ASIO) and enforcement agencies are authorised to access telecommunication data.
+All accessing of data outside of these agencies is illegal
+
+YOUR OVERALL RIGHTS
+Your telecommunication device may not be accessed by most people, except for by a government agency acting in the interest of law enforcement.
+
+Access the act: https://www.legislation.gov.au/Details/C2017C00192
+
