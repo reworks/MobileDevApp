@@ -62,7 +62,7 @@ function regoVerifyScene:show( event )
 		local message = "Hello, " .. _G.userName .. " please input this verification code: " .. verify
 		-- then send SMS. This should *theoretically* work according to corona docs and forums, etc, but doesn't appear to.
 		if string.len(_G.phoneNumber) == 10 then
-			native.showAlert( "Verification", message, { "Ok"})
+			androidUtils.SendSMS(tostring(_G.phoneNumber), message)
 		else
 			print("ERROR: Phone number to short! Must be 10 digits long.")
 		end

@@ -4,9 +4,7 @@ local composer = require("composer") -- Used to import composer library
 local homeScene = composer.newScene()
 
 local function Security ( event )
-		local mytext = display.newText("you touched security monitoring", 150, 200, Arial, 20)
-		mytext:setFillColor(1, 0, 0)
-		print (mytext)
+		composer.gotoScene("monitorScene")
 	end
 local function Legal ( event )
 	composer.gotoScene("legalRights")
