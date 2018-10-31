@@ -1,5 +1,5 @@
 
--- Version: 1.2
+
 ---------------------------------------------------------------------------------------
 
 local widget = require( "widget" )
@@ -8,33 +8,31 @@ local M = {}
 
 local infoShowing = false
 
-local function timerListener()
-	composer.gotoScene("home")
-end
-
-local function goHomeListener(event)
-	timer.performWithDelay(50, timerListener)
-end
-
 function M:newUI( options )
 
-	local backGroup = display.newGroup()
-	local frontGroup = display.newGroup()
+	local backGroup = display.newGroup()			-- Contains the scroll region to display the data
+	local frontGroup = display.newGroup()			-- Has the top button (toggle Display) and bottom bar 'Return' button.
 	local textGroupContainer = display.newContainer( 308, 290 ) ; frontGroup:insert( textGroupContainer )
 	local barContainer = display.newContainer( display.actualContentWidth, 50 )
+	local bottomBarContainer = display.newContainer( display.actualContentWidth, 50)
 	frontGroup:insert( barContainer )
+	frontGroup:insert( bottomBarContainer )
 	barContainer.anchorX = 0
 	barContainer.anchorY = 0
+	bottomBarContainer.anchorX = 0
+	bottomBarContainer.anchorY = 30	
 	barContainer.anchorChildren = false
 	barContainer.x = display.screenOriginX
 	barContainer.y = display.screenOriginY
-	print ("Arrived in the Acts display screen...")
+	bottomBarContainer.x = display.screenOriginX
+	bottomBarContainer.y = display.screenOriginY
+	print ("Arrived in the content display screen. Origin X = " .. display.screenOriginX .. ", Y = " .. display.screenOriginY)
 	
 	local scrollBounds
 	local infoBoxState = "canOpen"
 	local transComplete
 	local themeName = options.theme or "darkgrey"
-	local sampleCodeTitle = options.title or "Acts"
+	local contentDisplayTitle = options.title or "Content"
 	local fileName = options.fileName
 	print ("File name : " .. fileName)
 	
@@ -53,17 +51,24 @@ function M:newUI( options )
 	background.x, background.y = display.contentCenterX, display.contentCenterY
 
 	local topBarBack = display.newRect( barContainer, 0, 0, barContainer.contentWidth, barContainer.contentHeight )
+	local bottomBarBack = display.newRect( bottomBarContainer, 0, 30, bottomBarContainer.contentWidth, bottomBarContainer.contentHeight )
+	bottomBarBack.anchorX = 0
+	bottomBarBack.anchorY = 90
+	bottomBarBack:setFillColor( 0,0,0,0.6 )
 	topBarBack.anchorX = 0
 	topBarBack.anchorY = 0
 	topBarBack:setFillColor( 0,0,0,0.2 )
 --	topBarBack:toBack()
 	local topBarOver = display.newRect( barContainer, 0, 0, barContainer.contentWidth, barContainer.contentHeight - 2 )
+	local bottomBarOver = display.newRect( bottomBarContainer, 0, 30, bottomBarContainer.contentWidth, bottomBarContainer.contentHeight - 2 )
 	topBarOver.anchorX = 0
 	topBarOver.anchorY = 0
 	topBarOver:setFillColor( { type="gradient", color1={ 0.144 }, color2={ 0.158 } } )
+	bottomBarOver:setFillColor( { type="gradient", color1={ 0.244 }, color2={ 0.158 } } )
 	textGroupContainer:toBack()
-	print ("Background Image created...")
-
+	print ("Action Bar header Image created. Content Width = " .. barContainer.contentWidth .. ", Height = " .. barContainer.contentHeight)
+	print ("Bottom Action Bar header Image created. Content Width = " .. bottomBarContainer.contentWidth .. ", Height = " .. bottomBarContainer.contentHeight)
+	
 	-- Check system for font selection
 	local useFont
 	print ("Font check being Made...")
@@ -75,7 +80,7 @@ function M:newUI( options )
 	self.appFont = useFont
 
 	-- Place sample app title
-	local title = display.newText( barContainer, sampleCodeTitle, barContainer.contentWidth - 28, topBarOver.contentHeight / 2, useFont, 12 )
+	local title = display.newText( barContainer, contentDisplayTitle, barContainer.contentWidth - 28, topBarOver.contentHeight / 2, useFont, 12 )
 	title.anchorX = 1
 
 	-- Create shade rectangle
@@ -92,8 +97,18 @@ function M:newUI( options )
 	infoButton.y = topBarOver.contentHeight / 2
 	infoButton.isVisible = false
 	infoButton.id = "infoButton"
-	print ("Invisible Info Button created...")
+	print ("Invisible Info Button created. Position X = " .. infoButton.x .. ", Y = " .. infoButton.y)
+	
+	-- Create the Return button
 
+	local returnButton = display.newImageRect( barContainer, "images/rowArrow.png", 25, 25 )
+	returnButton.anchorX = 1
+	returnButton.x = bottomBarContainer.contentWidth - 150
+	returnButton.y = bottomBarOver.contentHeight / 2
+	returnButton.isVisible = false
+	returnButton.id = "returnButton"
+	print ("invisible Return Button created. Position X = " .. returnButton.x .. ", Y = " .. returnButton.y)
+	
 	-- Create table for initial object positions
 	local objPos = { infoBoxOffY=0, infoBoxDestY=0 }
 
@@ -106,6 +121,13 @@ function M:newUI( options )
 			background.x, background.y, background.rotation = display.contentCenterX, display.contentCenterY, 90
 		end
 
+		bottomBarContainer.x = display.screenOriginX
+		bottomBarContainer.y = display.screenOriginY + 550
+		bottomBarContainer.width = display.actualContentWidth
+		bottomBarBack.width = barContainer.width
+		bottomBarOver.width = barContainer.width
+		returnButton.x = bottomBarContainer.contentWidth - 150
+
 		barContainer.x = display.screenOriginX
 		barContainer.y = display.screenOriginY
 		barContainer.width = display.actualContentWidth
@@ -113,12 +135,14 @@ function M:newUI( options )
 		topBarOver.width = barContainer.width
 		title.x = barContainer.contentWidth - 28
 		infoButton.x = barContainer.contentWidth - 3
+				
 		screenShade.x = display.contentCenterX
 		screenShade.y = display.contentCenterY
 		screenShade.width = display.actualContentWidth
 		screenShade.height = display.actualContentHeight
 		textGroupContainer.x = display.contentCenterX
-
+		
+		-- The info box displays the contents of the text file read in the scrolling region.
 		-- If info box is opening or already open, snap it entirely on screen
 		objPos["infoBoxOffY"] = display.screenOriginY - 130
 		objPos["infoBoxDestY"] = (barContainer.y + barContainer.contentHeight + 130)
@@ -231,7 +255,7 @@ function M:newUI( options )
 		
 		infoTextGroup.isVisible = false
 		textGroupContainer.isVisible = false
-
+		
 		transComplete = function()
 
 			if infoBoxState == "opening" then
@@ -258,14 +282,18 @@ function M:newUI( options )
 		end
 
 		local function controlInfoBox( event )
-			print ("Control the infoBox event...")
+	
+				
+			print ("Display the text file in the infoBox event...")
 			if event.phase == "began" then
 				if infoBoxState == "canOpen" then
 					infoBoxState = "opening"
 					infoShowing = true
+					
 					if self.onInfoEvent then
 						self.onInfoEvent( { action="show", phase="will" } )
 					end
+					
 					textGroupContainer.x = display.contentCenterX
 					textGroupContainer.y = objPos["infoBoxOffY"]
 					textGroupContainer:insert( infoTextGroup )
@@ -284,6 +312,7 @@ function M:newUI( options )
 					if self.onInfoEvent then
 						self.onInfoEvent( { action="hide", phase="will" } )
 					end
+					
 					textGroupContainer:insert( infoTextGroup )
 					local scrollX, scrollY = scrollBounds:getContentPosition()
 					infoTextGroup.x = 0 ; infoTextGroup.y = scrollY
@@ -292,40 +321,28 @@ function M:newUI( options )
 					transition.to( screenShade, { time=400, tag="infoBox", alpha=0, transition=easing.outQuad } )
 					transition.to( textGroupContainer, { time=400, tag="infoBox", xScale=0.96, yScale=0.96, transition=easing.outQuad } )
 					transition.to( textGroupContainer, { time=700, tag="infoBox", delay=200, y=objPos["infoBoxOffY"], transition=easing.inCubic, onComplete=transComplete } )
-				end
+				end				
 			end
 			return true
 		end
 
-		-- Set info button tap listener
+		-- Return to the previous scene.
+		
+		local function controlReturnBox( event )
+			print ("Return button touched.")
+		end
+		
+		-- Set info and Return button tap listener
 		infoButton.isVisible = true
-		print ("Info button is Visible...")
+		returnButton.isVisible = false
+		print ("Info and Return buttons are Visible...")
 		infoButton:addEventListener( "touch", controlInfoBox )
 		infoButton.listener = controlInfoBox
+
+		returnButton:addEventListener( "touch", controlReturnBox )
+		returnButton.listener = controlReturnBox
+		
 		screenShade:addEventListener( "touch", controlInfoBox )
-
-		local backHomeBtn = widget.newButton(
-		{
-			x = display.contentCenterX,
-			y = display.contentCenterY + 247,
-			shape = "rect",
-			fillColor = 
-			{
-				default = 
-				{
-					0.0, 0.0, 1.0, 0.7
-				},
-				over = 
-				{
-					0.0, 0.0, 1.0, 0.9
-				}
-			},
-			width = 315,
-			height = 51,
-			isEnabled = true,
-			onEvent = goHomeListener
-		})
-
 	end
 
 	self.infoButton = infoButton
