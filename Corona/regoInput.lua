@@ -5,10 +5,10 @@ local globals = require("globals")
 local regoInputScene = composer.newScene()
 
 local function timerListener()
-    if string.len(_G.phoneNumber) == 10 then
+    if string.len(_G.phoneNumber) >= 10 then
         composer.gotoScene("regoVerify")
     else
-        local errorText = display.newText("Phone number to short! ", display.contentCenterX, display.contentCenterY - 210, native.systemFont, 18)
+        local errorText = display.newText("Invalid phone number!", display.contentCenterX, display.contentCenterY - 210, native.systemFont, 18)
         errorText:setFillColor(1, 0, 0)
     end
 end

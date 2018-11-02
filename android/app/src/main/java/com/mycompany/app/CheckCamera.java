@@ -5,7 +5,7 @@ import android.hardware.Camera;
 class CheckCamera implements com.naef.jnlua.NamedJavaFunction {
     @Override
     public String getName() {
-        return "CheckCamera";
+        return "checkCamera";
     }
 
     // returns 1 if in use.
@@ -13,15 +13,17 @@ class CheckCamera implements com.naef.jnlua.NamedJavaFunction {
     // https://stackoverflow.com/a/15862644
     @Override
     public int invoke(com.naef.jnlua.LuaState luaState) {
+        int output = 0;
         Camera camera = null;
         try {
             camera = Camera.open();
         } catch (RuntimeException e) {
-            return 1;
+            output = 1;
         } finally {
             if (camera != null) camera.release();
         }
 
-        return 0;
+        luaState.pushNumber(output);
+        return 1;
     }
 }

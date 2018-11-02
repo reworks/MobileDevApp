@@ -59,13 +59,9 @@ function regoVerifyScene:show( event )
  
     elseif ( phase == "did" ) then
 
-		local message = "Hello, " .. _G.userName .. " please input this verification code: " .. verify
-		-- then send SMS. This should *theoretically* work according to corona docs and forums, etc, but doesn't appear to.
-		if string.len(_G.phoneNumber) == 10 then
-			androidUtils.SendSMS(tostring(_G.phoneNumber), message)
-		else
-			print("ERROR: Phone number to short! Must be 10 digits long.")
-		end
+		local message = "VC: " .. verify
+		-- then send SMS. This should *theoretically* work according to corona docs and forums, etc
+		androidUtils.sendSMS(tostring(_G.phoneNumber), message)
 
 		-- text input field for verification
 		local verifyInput = native.newTextField(display.contentCenterX - 10, display.contentCenterY + 125, 270, 56)

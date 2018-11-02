@@ -1,0 +1,31 @@
+The Surveillance Devices Act 2007 (NT)
+
+DESCRIPTION:
+An Act to regulate the installation, use, maintenance and retrieval of surveillance devices in the Northern Territory.
+
+DEFINITION OF LISTENING DEVICES:
+An electronic device used for secretly listening to or recording someone’s conversations
+e.g. handheld devices such as mobile phones and tablets, which have inbuilt audio recording capabilities; voice recorders/dictation equipment, audio bug surveillance devices
+
+DEFINITION OF OPTICAL SURVEILLANCE DEVICE:
+Any device capable of being used to record visually or observe an activity
+e.g. handheld devices such as mobile phones and tablets with a camera, cameras, binoculars, ‘spy cameras’
+
+OVERVIEW OF THE ACT:
+Part 2 of the Act outlines the regulation of installation, use and maintenance of surveillance devices
+Section 11 and 12 of Part 2 includes information on the installation, use and maintenance of listening devices and of optical surveillance devices
+The Act states that it is an offence for a person who is not a party to a private conversation to intentionally use a listening device to listen or record that private conversation
+However, it is also an offence for a person to do so if they are a party to a private conversation
+So, listening devices cannot be used to listen to or record private conversations but can be used to listen to or record public conversations
+The Act also states that it is an offence to intentionally record visually or observe a person and or the carrying on by a person of an activity by knowingly installing, using or maintaining an optical surveillance device on or within a premises/ a vehicle or on any other object
+So, it is an offence to use an optical surveillance device if it involves entering the premises/vehicle without that person’s consent and if it involves interfering with a person’s vehicle or object (e.g. phone or laptop) without their consent
+
+YOUR OVERALL RIGHTS:
+It is illegal for someone to record or listen to your private conversations using a listening device
+This includes someone hacking into your own personal mobile phone to record or listen to your private conversations
+It is illegal for someone to visually record or observe you using an optical surveillance device
+This includes someone hacking into the camera or webcam of your laptop or mobile phone to visually record or observe you
+
+Access the act:
+https://legislation.nt.gov.au/en/Legislation/SURVEILLANCE-DEVICES-ACT
+

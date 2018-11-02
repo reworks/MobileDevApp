@@ -2,7 +2,7 @@
 --
 -- displayScene.lua
 --
--- This is the scene in which the Act links are display.
+-- This is the scene in which the Act/Complaint links are display.
 --
 -----------------------------------------------------------------------------------------
 
@@ -12,13 +12,19 @@ local displayLegalRights = require( "displayLR" )
 
 local scene = composer.newScene()
 
+local fileListOptions = composer.getVariable("fileToDisplay")
+
+local listToDisplay = composer.getVariable("listToDisplay")
+
+local displayTitle = composer.getVariable("displayTitle")
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
 
 display.setStatusBar( display.HiddenStatusBar ) 
-local titleString = "Relevant Acts"
+local titleString = composer.getVariable("mainTitle")
 
 -- Modules
 -------------------------------------------------------------------------------
@@ -34,7 +40,6 @@ local LEFT_PADDING = 10
 local halfW = display.contentCenterX
 local halfH = display.contentCenterY
 local width = display.actualContentWidth
-
 
 -- Forward declares
 -------------------------------------------------------------------------------
@@ -53,57 +58,6 @@ titleBar.y = display.screenOriginY + titleBar.contentHeight * 0.5
 
 -- create embossed text to go on toolbar
 local titleText = display.newText( view, titleString, halfW, titleBar.y, native.systemFontBold, 18 )
-
- --[[
--- Preview group
--------------------------------------------------------------------------------
-local preview = display.newGroup()
-preview:translate( halfW + width, halfH )
-local w,h = 240,160
-
-local before = display.newImageRect( preview, "images/LDA-ACT.jpg", w, h )
-
-
-
-local after = display.newRect( preview, 0, 0, w, h )
-
-after.fill =
-{
-	type = "composite",
-	paint1 = { type="image", filename="images/LDA-ACT.jpg" },
-	paint2 = { type="image", filename="images/Image2.jpg" }
-}
-
-before.anchorY = 1 -- image on top
-after.anchorY = 0 -- image on bottom
-
-local onBackRelease = function()
-	--Transition in the list, transition out the item selected text and the back button
-	--The table x origin refers to the center of the table in Graphics 2.0, so we translate with half the object's contentWidth
-	transition.to( list, { x = width * 0.5 + display.screenOriginX, time = 400, transition = easing.outExpo } )
-	transition.to( preview, { x = width + preview.contentWidth * 0.5, time = 400, transition = easing.outExpo } )
-	titleText.text = titleString
-end
-
--- Back button
-	print ("At the back button code now...")
-local backButton = widget.newButton
-{
-	x = 0,
-	y = after.contentHeight + 20,
-	width = 298,
-	height = 56,
-	label = "Back", 
-	labelYOffset = - 1,
-	onRelease = onBackRelease
-}
-preview:insert( backButton )
-
--- preview is child of main view
-view:insert( preview )
-]]
--- UI
--------------------------------------------------------------------------------
 
 -- Handle row rendering
 local function onRowRender( event )
@@ -143,8 +97,8 @@ local function onRowTouch( event )
 		--Transition out the list, transition in the item selected text and the back button
 		
 		print ("off to the selected legal rights act display...")		
-		displayLegalRights:newUI( { theme="darkgrey", title="Click the button to display the Legal Rights Info.", fileName="legalrights/LegalRightsNSW.txt"} )
-		
+		displayLegalRights:newUI( { theme="darkgrey", title=displayTitle, fileName=fileListOptions} )
+						
 		display.getCurrentStage():insert( displayLegalRights.backGroup )
 		local sceneGroup = display.newGroup()
 		display.getCurrentStage():insert( displayLegalRights.frontGroup )
@@ -171,7 +125,7 @@ view:insert( list )
 -------------------------------------------------------------------------------
 
 -- Read Legal Rights Acts (effects) from json
-local f = io.open( system.pathForFile( "legalrights/legalRights.json" ) )
+local f = io.open( system.pathForFile( listToDisplay ) )
 local data = f:read( "*a" )
 local effects = json.decode( data )
 

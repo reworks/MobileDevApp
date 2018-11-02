@@ -7,12 +7,12 @@ import android.media.MediaRecorder;
 class CheckMic implements com.naef.jnlua.NamedJavaFunction {
     @Override
     public String getName() {
-        return "CheckMic";
+        return "checkMic";
     }
 
     // returns 1 if in use.
     // thanks to:
-   // https://stackoverflow.com/a/35637498
+    // https://stackoverflow.com/a/35637498
     @Override
     public int invoke(com.naef.jnlua.LuaState luaState) {
         int available = 0;
@@ -38,6 +38,7 @@ class CheckMic implements com.naef.jnlua.NamedJavaFunction {
             recorder = null;
         }
 
-        return available;
+        luaState.pushNumber(available);
+        return 1;
     }
 }

@@ -4,15 +4,23 @@ local composer = require("composer") -- Used to import composer library
 local homeScene = composer.newScene()
 
 local function Security ( event )
-		composer.gotoScene("monitorScene")
-	end
+	composer.gotoScene("monitorScene")
+end
 local function Legal ( event )
+	composer.setVariable ("fileToDisplay" , "legalrights/LegalRightsWA.txt")
+	composer.setVariable ("listToDisplay" , "legalrights/legalRights.json")
+	composer.setVariable ("mainTitle", "Relevant Acts")
+	composer.setVariable ("displayTitle", "Click the button to toggle the Legal Rights Info.")
+
 	composer.gotoScene("legalRights")
 end
 local function Complain_bt ( event )
-	local mytext = display.newText("you touched complain ", 150, 240, Arial, 20)
-	mytext:setFillColor(3, 3, 0)
-	print (mytext)
+	composer.setVariable ("fileToDisplay" ,"complaints/ComplaintGovtSource.txt")
+	composer.setVariable ("listToDisplay" , "complaints/complaints.json")
+	composer.setVariable ("mainTitle", "Complaints")
+	composer.setVariable ("displayTitle", "Click the button to toggle the Complaints Info.")
+
+	composer.gotoScene("legalRights")
 end
 
 function homeScene:create( event )

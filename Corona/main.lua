@@ -28,6 +28,7 @@ local function main()
 	if num == 0 then
 		composer.gotoScene("rego")
 	else
+		_G.phoneNumber = num
 		composer.gotoScene("home")
 	end
 end
