@@ -105,7 +105,7 @@ local function onRowRender( event )
 	
 	-- Right-align the arrow
 	rowArrow.anchorX = 1
-	rowArrow.x = row.contentWidth - LEFT_PADDING
+	rowArrow.x = (row.contentWidth - LEFT_PADDING) - 20
 	rowArrow.y = y
 end
 

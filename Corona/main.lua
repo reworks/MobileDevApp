@@ -19,12 +19,14 @@ end
 
 -- App start function. Sets up app.
 local function main()
+	-- Ensures UI is recycled when a scene is changed, to prevent it showing up in other scenes.
 	composer.recycleOnSceneChange = true
-	display.setStatusBar(display.HiddenStatusBar)
-	math.randomseed(os.time())
+	display.setStatusBar(display.HiddenStatusBar) -- Keeps status bar hidden, ensuring app is fullscreen and nothing gets covered up.
+	math.randomseed(os.time()) -- makes sure our verification code is properly randomized.
 
-	local num = checkForRego()
+	local num = checkForRego() -- See above function
 
+	-- If the number is 0 then there is no phone number existing so we have to goto the rego scene, other wise, i.e. on a subsequent launch, we go to the home menu.
 	if num == 0 then
 		composer.gotoScene("rego")
 	else

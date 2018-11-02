@@ -15,6 +15,7 @@ local function backBtnListener(event)
 end
 
 local function CameraBtnListener(event)
+	-- all this stuff makes sure text ui is not present across multiple scenes.
 	if offCameraText ~= nil then 
     	offCameraText:removeSelf()
     	offCameraText = nil
@@ -35,6 +36,7 @@ local function CameraBtnListener(event)
     	onMicText = nil
     end	
 
+    -- calls the java class checkCamera, and the invoke method(), which checks to see if the caemra is in use.
     local cameraInUse = androidUtils.checkCamera()
 	if cameraInUse == 1 then
 		onCameraText = display.newText("Camera is in use!", display.contentCenterX, display.contentCenterY + 60, native.systemFont, 18)
@@ -64,6 +66,7 @@ local function micBtnListener(event)
     	onMicText = nil
     end
 	
+	-- calls the java class checkMic, and the invoke method(), which checks to see if the mic is in use.
     local micInUse = androidUtils.checkMic()
 	if micInUse == 1 then
 		onMicText = display.newText("Mic is in use!", display.contentCenterX, display.contentCenterY + 60, native.systemFont, 18)
@@ -89,6 +92,7 @@ function monitorScene:show( event )
     if ( phase == "will" ) then
  
     elseif ( phase == "did" ) then
+    	-- Buttons to call the monitoring functions.
     	local checkCamera = widget.newButton(
 		{
 			x = display.contentCenterX - 3,
@@ -171,6 +175,7 @@ function monitorScene:hide( event )
 end
  
 function monitorScene:destroy( event )
+	-- makes sure all ui is cleaned up.
     local sceneGroup = self.view
 
     if offCameraText ~= nil then 

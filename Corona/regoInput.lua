@@ -5,6 +5,7 @@ local globals = require("globals")
 local regoInputScene = composer.newScene()
 
 local function timerListener()
+	-- makes sure the phone number is valid.
     if string.len(_G.phoneNumber) >= 10 then
         composer.gotoScene("regoVerify")
     else
@@ -24,6 +25,7 @@ local function usernameTextListener(event)
 	if event.phase == "began" then
  
     elseif event.phase == "ended" or event.phase == "submitted" then
+    	-- sets username for use during rego
        _G.userName = event.target.text
  
     elseif ( event.phase == "editing" ) then
@@ -34,7 +36,7 @@ end
 -- Event listener for textinput for phone number.
 local function phoneTextListener(event)
 	if event.phase == "began" then
- 
+ 	-- sets phone number for use.
     elseif event.phase == "ended" or event.phase == "submitted" then
        _G.phoneNumber = event.target.text
  

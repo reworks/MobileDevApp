@@ -35,13 +35,17 @@ public class CoronaApplication extends android.app.Application {
 		 */
 		@Override
 		public void onLoaded(com.ansca.corona.CoronaRuntime runtime) {
+			// Retrieves the lua state.
 			com.naef.jnlua.LuaState luaState = runtime.getLuaState();
+
+			// This code creates an array that contains pointers to the classes that each contain an invoke function, to be called by lua.
 			com.naef.jnlua.NamedJavaFunction[] luaFunctions;
 			luaFunctions = new com.naef.jnlua.NamedJavaFunction[] {
 				new SendSMS(),
 				new CheckCamera(),
 				new CheckMic()
 			};
+			// This code registers the lua functions to the androidUtils table/object, allowing us to call java functions from lua!
 			luaState.register("androidUtils", luaFunctions);
 			luaState.pop(1);
 		}

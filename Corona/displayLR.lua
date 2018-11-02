@@ -135,7 +135,7 @@ function M:newUI( options )
 	local returnButton = display.newImageRect( barContainer, "images/rowArrow.png", 25, 25 )
 	returnButton.anchorX = 1
 	returnButton.x = bottomBarContainer.contentWidth - 150
-	returnButton.y = bottomBarOver.contentHeight / 2
+	returnButton.y = bottomBarOver.contentHeight - 25
 	returnButton.isVisible = false
 	returnButton.id = "returnButton"
 	-- print ("invisible Return Button created. Position X = " .. returnButton.x .. ", Y = " .. returnButton.y)
@@ -157,7 +157,6 @@ function M:newUI( options )
 		bottomBarContainer.width = display.actualContentWidth
 		bottomBarBack.width = barContainer.width
 		bottomBarOver.width = barContainer.width
-		returnButton.x = bottomBarContainer.contentWidth - 150
 
 		barContainer.x = display.screenOriginX
 		barContainer.y = display.screenOriginY
@@ -365,7 +364,7 @@ function M:newUI( options )
 		
 		-- Set info and Return button tap listener
 		infoButton.isVisible = true
-		returnButton.isVisible = false
+		returnButton.isVisible = true
 		-- print ("Info and Return buttons are Visible...")
 		infoButton:addEventListener( "touch", controlInfoBox )
 		infoButton.listener = controlInfoBox

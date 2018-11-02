@@ -1,3 +1,5 @@
+-- home.lua - Main Menu of App after registering.
+
 local widget = require("widget") -- Used to import UI Widgets.
 local composer = require("composer") -- Used to import composer library
 
@@ -7,6 +9,7 @@ local function Security ( event )
 	composer.gotoScene("monitorScene")
 end
 local function Legal ( event )
+	-- Since legalRights utilizes the same scene, by changing a few variables we can recycle the same code to display the complaints or legal rights!
 	composer.setVariable ("fileToDisplay" , "legalrights/LegalRightsWA.txt")
 	composer.setVariable ("listToDisplay" , "legalrights/legalRights.json")
 	composer.setVariable ("mainTitle", "Relevant Acts")
@@ -15,6 +18,7 @@ local function Legal ( event )
 	composer.gotoScene("legalRights")
 end
 local function Complain_bt ( event )
+	-- Since legalRights utilizes the same scene, by changing a few variables we can recycle the same code to display the complaints or legal rights!
 	composer.setVariable ("fileToDisplay" ,"complaints/ComplaintGovtSource.txt")
 	composer.setVariable ("listToDisplay" , "complaints/complaints.json")
 	composer.setVariable ("mainTitle", "Complaints")
@@ -26,6 +30,7 @@ end
 function homeScene:create( event )
     local sceneGroup = self.view
 
+    -- Pretty simple, ensures background is centered when its displayed on the phone.
     local inputBG = display.newImage("home.png", true)
 	inputBG.x = display.contentCenterX	
 	inputBG.y = display.contentCenterY
@@ -42,6 +47,8 @@ function homeScene:show( event )
     if ( phase == "will" ) then
  
     elseif ( phase == "did" ) then
+-- These buttons define each of the main menu buttons to press. All stanard corona widgets.
+
     	local Sec_Mon = widget.newButton(
 	{
 		x = 70,

@@ -1,3 +1,5 @@
+-- metadata table, used to tell android systems what permissions we are using. We also have to specify these permissions in the android manifest.
+
 local metadata =
 {
     plugin =

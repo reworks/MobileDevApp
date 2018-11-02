@@ -7,12 +7,6 @@ local regoVerifyScene = composer.newScene()
 local verify --forward dec of verification code input variable
 
 local function regoVerifyListener(event)
-	
-	-- temp
-	print("code:" .. _G.verifyCode)
-	print("to check: " .. verify)
-
-
 	-- if verification code is correct then save file and move on if not print error message...
     if tonumber(_G.verifyCode) == tonumber(verify) then
     	local file, error = io.open(system.pathForFile("reg.txt", system.DocumentsDirectory), "w")

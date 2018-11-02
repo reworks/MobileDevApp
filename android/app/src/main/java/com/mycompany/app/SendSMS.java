@@ -14,7 +14,7 @@ class SendSMS implements com.naef.jnlua.NamedJavaFunction {
 		String phoneNumber = luaState.checkString(1);
 		String msg = luaState.checkString(2);
 
-
+		// Sends a text message from the provided information from the lua script.
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(phoneNumber, null, msg, null, null);
 
