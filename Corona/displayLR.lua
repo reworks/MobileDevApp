@@ -1,5 +1,36 @@
+ --[[
 
+ Abstract: This module will display the text file selected by theuser in the calling scene.
+ 
+ Sections of code and functionality were inspired by the CoronaLabSDK sample code, hence the Copyright notice.
+ Prior to including sections of the sample code, an understanding of what the code was performing and how it was working was completed.
 
+ CSI2108 Assignment 2, 2018
+
+ Greg Hobson, SN 10408078
+
+Our sample code is licensed under the MIT License, the same license that Lua is licensed under:
+
+Copyright © 2010-2017 Corona Labs, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+]]
 ---------------------------------------------------------------------------------------
 
 local widget = require( "widget" )
@@ -26,7 +57,7 @@ function M:newUI( options )
 	barContainer.y = display.screenOriginY
 	bottomBarContainer.x = display.screenOriginX
 	bottomBarContainer.y = display.screenOriginY
-	print ("Arrived in the content display screen. Origin X = " .. display.screenOriginX .. ", Y = " .. display.screenOriginY)
+	-- print ("Arrived in the content display screen. Origin X = " .. display.screenOriginX .. ", Y = " .. display.screenOriginY)
 	
 	local scrollBounds
 	local infoBoxState = "canOpen"
@@ -34,7 +65,7 @@ function M:newUI( options )
 	local themeName = options.theme or "darkgrey"
 	local contentDisplayTitle = options.title or "Content"
 	local fileName = options.fileName
-	print ("File name : " .. fileName)
+	-- print ("File name : " .. fileName)
 	
 	-- Read from the LegalRights.txt file
 	local LRIText = ""
@@ -66,12 +97,12 @@ function M:newUI( options )
 	topBarOver:setFillColor( { type="gradient", color1={ 0.144 }, color2={ 0.158 } } )
 	bottomBarOver:setFillColor( { type="gradient", color1={ 0.244 }, color2={ 0.158 } } )
 	textGroupContainer:toBack()
-	print ("Action Bar header Image created. Content Width = " .. barContainer.contentWidth .. ", Height = " .. barContainer.contentHeight)
-	print ("Bottom Action Bar header Image created. Content Width = " .. bottomBarContainer.contentWidth .. ", Height = " .. bottomBarContainer.contentHeight)
+	-- print ("Action Bar header Image created. Content Width = " .. barContainer.contentWidth .. ", Height = " .. barContainer.contentHeight)
+	-- print ("Bottom Action Bar header Image created. Content Width = " .. bottomBarContainer.contentWidth .. ", Height = " .. bottomBarContainer.contentHeight)
 	
 	-- Check system for font selection
 	local useFont
-	print ("Font check being Made...")
+	-- print ("Font check being Made...")
 	if ( "android" == system.getInfo( "platform" ) or "win32" == system.getInfo( "platform" ) ) then
 		useFont = native.systemFont
 	else
@@ -88,7 +119,7 @@ function M:newUI( options )
 	screenShade:setFillColor( 0,0,0 ) ; screenShade.alpha = 0
 	screenShade.x, screenShade.y = display.contentCenterX, display.contentCenterY
 	screenShade.isHitTestable = false ; screenShade:toBack()
-	print ("Shaded Rectangle created...")
+	-- print ("Shaded Rectangle created...")
 
 	-- Create info button (initially invisible)
 	local infoButton = display.newImageRect( barContainer, "images/infobutton.png", 25, 25 )
@@ -97,7 +128,7 @@ function M:newUI( options )
 	infoButton.y = topBarOver.contentHeight / 2
 	infoButton.isVisible = false
 	infoButton.id = "infoButton"
-	print ("Invisible Info Button created. Position X = " .. infoButton.x .. ", Y = " .. infoButton.y)
+	-- print ("Invisible Info Button created. Position X = " .. infoButton.x .. ", Y = " .. infoButton.y)
 	
 	-- Create the Return button
 
@@ -107,14 +138,14 @@ function M:newUI( options )
 	returnButton.y = bottomBarOver.contentHeight / 2
 	returnButton.isVisible = false
 	returnButton.id = "returnButton"
-	print ("invisible Return Button created. Position X = " .. returnButton.x .. ", Y = " .. returnButton.y)
+	-- print ("invisible Return Button created. Position X = " .. returnButton.x .. ", Y = " .. returnButton.y)
 	
 	-- Create table for initial object positions
 	local objPos = { infoBoxOffY=0, infoBoxDestY=0 }
 
 	-- Resize change handler
 	local function onResize( event )
-		print ("Resize Event handler created...")
+		-- print ("Resize Event handler created...")
 		if display.contentHeight >= display.contentWidth then
 			background.x, background.y, background.rotation = display.contentCenterX, display.contentCenterY, 0
 		else
@@ -167,7 +198,7 @@ function M:newUI( options )
 	
 	Runtime:addEventListener( "resize", onResize )
 	
-	print ("Event listener created at RunTime...")
+	-- print ("Event listener created at RunTime...")
 	-- If there is LegalRights.txt content, create needed elements
 	if LRIText ~= "" then
 
@@ -335,7 +366,7 @@ function M:newUI( options )
 		-- Set info and Return button tap listener
 		infoButton.isVisible = true
 		returnButton.isVisible = false
-		print ("Info and Return buttons are Visible...")
+		-- print ("Info and Return buttons are Visible...")
 		infoButton:addEventListener( "touch", controlInfoBox )
 		infoButton.listener = controlInfoBox
 
